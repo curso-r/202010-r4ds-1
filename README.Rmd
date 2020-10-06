@@ -59,7 +59,15 @@ knitr::kable(
     link = paste0("https://curso-r.github.io/", main_repo, "/", slide)
   ) %>% 
     dplyr::filter(!stringr::str_detect(slide, "_files/"))
-)
+  %>% 
+  dplyr::mutate(
+    slide_pdf = CursoR:::list_github_files(main_repo, "slides/", "pdf"),
+    link_pdf = paste0("<a href='https://curso-r.github.io/", main_repo, "/", slide_pdf, "'> PDF </a>")
+  ) %>% 
+    dplyr::select(-slide_pdf),
+  
+  col.names = c("Slide", "Link", "Link em PDF")
+) 
 ```
 
 ## Scripts usados em aula

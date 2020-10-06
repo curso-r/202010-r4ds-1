@@ -41,13 +41,13 @@ CursoR::atualizar_material()
 
 ## Slides
 
-| slide                              | link                                                                       |
-| :--------------------------------- | :------------------------------------------------------------------------- |
-| slides/01-introducao-ao-curso.html | <https://curso-r.github.io/main-r4ds-1/slides/01-introducao-ao-curso.html> |
-| slides/02-introducao-ao-r.html     | <https://curso-r.github.io/main-r4ds-1/slides/02-introducao-ao-r.html>     |
-| slides/03-importacao.html          | <https://curso-r.github.io/main-r4ds-1/slides/03-importacao.html>          |
-| slides/04-manipulacao.html         | <https://curso-r.github.io/main-r4ds-1/slides/04-manipulacao.html>         |
-| slides/05-ggplot2.html             | <https://curso-r.github.io/main-r4ds-1/slides/05-ggplot2.html>             |
+| Slide                              | Link                                                                       | Link em PDF                                                                                 |
+| :--------------------------------- | :------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------ |
+| slides/01-introducao-ao-curso.html | <https://curso-r.github.io/main-r4ds-1/slides/01-introducao-ao-curso.html> | <a href='https://curso-r.github.io/main-r4ds-1/slides/01-introducao-ao-curso.pdf'> PDF </a> |
+| slides/02-introducao-ao-r.html     | <https://curso-r.github.io/main-r4ds-1/slides/02-introducao-ao-r.html>     | <a href='https://curso-r.github.io/main-r4ds-1/slides/02-introducao-ao-r.pdf'> PDF </a>     |
+| slides/03-importacao.html          | <https://curso-r.github.io/main-r4ds-1/slides/03-importacao.html>          | <a href='https://curso-r.github.io/main-r4ds-1/slides/03-importacao.pdf'> PDF </a>          |
+| slides/04-manipulacao.html         | <https://curso-r.github.io/main-r4ds-1/slides/04-manipulacao.html>         | <a href='https://curso-r.github.io/main-r4ds-1/slides/04-manipulacao.pdf'> PDF </a>         |
+| slides/05-ggplot2.html             | <https://curso-r.github.io/main-r4ds-1/slides/05-ggplot2.html>             | <a href='https://curso-r.github.io/main-r4ds-1/slides/05-ggplot2.pdf'> PDF </a>             |
 
 ## Scripts usados em aula
 
