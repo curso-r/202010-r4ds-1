@@ -1,0 +1,407 @@
+---
+title: "R para Ciência de Dados I"
+author: "<img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '20%'>"
+date: ""
+output:
+  xaringan::moon_reader:
+    css: ["default", "default-fonts", "css/custom-intro.css"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+knit: pagedown::chrome_print      
+---
+
+```{r, child="00-preamble.Rmd"}
+
+```
+
+class: middle, center
+
+# Sobre a Curso-R
+
+---
+
+class: middle, center
+
+## A empresa
+
+.pull-left[
+```{r, echo = FALSE}
+knitr::include_graphics("https://d33wubrfki0l68.cloudfront.net/295643c6243701ae6a9bac3fb8ad467ff0ce3c84/d1785/img/logo/cursor1-41.png")
+```
+
+<br>
+<br>
+
+```{r, echo = FALSE}
+knitr::include_graphics("img/logo_r6.png")
+```
+
+]
+
+.pull-right[
+```{r, echo = FALSE}
+knitr::include_graphics("img/produtos.png")
+```
+]
+
+### [www.curso-r.com](https://www.curso-r.com)
+
+---
+
+## Linha do tempo
+
+<center>
+<img src="img/linha_do_tempo.png" width = 45%></img>
+</center>
+
+---
+
+## Nossos cursos
+
+.pull-left[
+<div class="container center">
+  <div class="card">
+    <h2>Programação em R</h2>
+    <hr style = "background-color: #3bb44a;"/>
+    <p><a href = "https://www.curso-r.com/cursos/r4ds-1/">R para Ciência de dados I</a></p>
+        <p><a href = "https://www.curso-r.com/cursos/r4ds-2/">R para Ciência de dados II</a></p>
+        <p><a href = "https://www.curso-r.com/cursos/rcpp/">Introdução ao R com C++</a></p>
+  </div>
+</div>
+
+<br>
+
+<div class="container center">
+  <div class="card">
+    <h2>Modelagem</h2>
+    <hr style = "background-color: #996699;"/>
+    <p><a href = "https://www.curso-r.com/cursos/regressao-linear/">Regressão Linear</a></p>
+    <p><a href = "https://www.curso-r.com/cursos/intro-machine-learning/">Machine Learning</a></p>
+    <p><a href = "https://www.curso-r.com/cursos/xgboost/">XGBoost</a></p>
+    <p><a href = "https://www.curso-r.com/cursos/deep-learning/">Deep Learning</a></p>
+  </div>
+</div>
+]
+
+
+.pull-right[
+<div class="container center">
+  <div class="card">
+    <h2>Extração de dados</h2>
+    <hr style = "background-color: #eeba30;"/>
+    <p><a href = "https://www.curso-r.com/cursos/web-scraping/">Web scraping</a></p>
+  </div>
+</div>
+
+<br>
+
+<div class="container center">
+  <div class="card">
+    <h2>Comunicação e automação</h2>
+    <hr style = "background-color: #ff6699;"/>
+    <p><a href = "https://www.curso-r.com/cursos/dashboards/">Dashboards com R</a></p>
+        <p><a href = "https://www.curso-r.com/cursos/deploy/">Deploy</a></p>
+  </div>
+</div>
+]
+
+---
+class: middle, center
+
+# Sobre o curso
+
+---
+## Conteúdo
+
+<center>
+<img src = "img/conteudo.png" width = "80%">
+</center>   
+---
+## Introdução ao R
+
+.pull-left[
+<br>
+- R e RStudio
+
+- Trabalhando com projetos
+
+- Objetos e funções
+
+- Pacotes
+]
+
+.pull-right[
+<center>
+<img src="img/arte_comunidade.png">
+<a href = "https://github.com/allisonhorst/stats-illustrations" target = "blank_"> <img src = "img/ref_horst.png" width = "75%" style = "margin-top: -30px;"> </a>
+</center>
+]
+
+---
+## Importação
+
+.pull-left[
+<br>
+- Arquivos de texto
+
+- Arquivos do excel
+
+- Arquivos de outros softwares (SAS, SPSS)
+
+- Conexão com banco de dados
+]
+
+.pull-right[
+<br>
+<center>
+<img src="img/arte_janitor.png">
+<a href = "https://github.com/allisonhorst/stats-illustrations" target = "blank_"> <img src = "img/ref_horst.png" width = "75%" style = "margin-top: -30px;"> </a>
+</center>
+]
+
+---
+## Manipulação
+
+.pull-left[
+<br>
+- Selecionar colunas
+
+- Filtrar linhas
+
+- Criar ou modificar colunas
+
+- Agrupar e sumarizar
+
+- Juntar tabelas
+]
+
+.pull-right[
+<center>
+<img src="img/arte_dplyr.png">
+<a href = "https://github.com/allisonhorst/stats-illustrations" target = "blank_"> <img src = "img/ref_horst.png" width = "75%" style = "margin-top: -30px;"> </a>
+</center>
+]
+
+---
+## Visualização
+
+<center>
+<img src="img/arte_ggplot2.png" width = 70%>
+<a href = "https://github.com/allisonhorst/stats-illustrations" target = "blank_"> <img src = "img/ref_horst.png" width = "35%" style = "margin-top: -30px;"> </a>
+</center>
+
+---
+## Comunicação
+
+- Relatórios automatizados
+- Dashboards estáticos
+
+<center>
+<img src="img/arte_rmarkdown.png" width = 70%>
+<a href = "https://github.com/allisonhorst/stats-illustrations" target = "blank_"> <img src = "img/ref_horst.png" width = "35%" style = "margin-top: -30px;"> </a>
+</center>
+
+---
+
+## Material
+
+<center>
+
+<br>
+
+Temos um material em português disponível nesta página:
+
+<br>
+
+<a href='https://curso-r.com/material'>https://curso-r.com/material</a>
+
+<br>
+<br>
+
+Também temos um blog: 
+
+<br>
+
+<a href='http://curso-r.com/blog/'>http://curso-r.com/blog/ </a>
+
+</center>
+
+<a href="https://www.curso-r.com/blog/2019-07-15-comunidade/">
+<img src="img/post-comunidade.png" style="position: fixed; bottom: 80px; left: 180px" width = 170px height = 280px></img>
+</a>
+
+<a href="https://www.curso-r.com/blog/2017-07-29-segundo-menor-dl/">
+<img src="img/post-deep-learning.png" style="position: fixed; bottom: 78px; left: 380px" width = 170px height = 275px></img>
+</a>
+
+<a href="https://www.curso-r.com/blog/2017-05-01-as-paletas-de-cores-da-marvel-vs-dc/">
+<img src="img/post-marvel.png" style="position: fixed; bottom: 82px; left: 570px" width = 170px height = 277px></img>
+</a>
+
+---
+
+## Referência
+
+<br>
+<center>
+<a href = "https://r4ds.had.co.nz">
+<img src="img/r4ds.png" width = 40%> 
+</a>
+</center>
+
+---
+class: middle, center
+
+# `r blue("Introdução")`
+
+### As vantagens de analisar dados usando linguagens de programação
+
+---
+class: middle, center
+
+### As principais linguagens de programação para ciência de dados são
+# Código Aberto
+
+---
+# O que significa ser código aberto?
+
+<br>
+
+1. Acesso gratuito.
+
+2. Todos podem usar as melhores ferramentas independentemente do poder financeiro.
+
+3. Estudantes podem usar as mesmas ferramentas que os profissionais.
+
+4. Você pode corrigir problemas e aprimorar a linguagem.
+
+5. Você pode desenvovler suas próprias ferramentas.
+
+6. Possibilita a existência de uma comunidade ativa.
+
+---
+class: middle, center
+# O código é uma linguagem
+
+---
+# Podemos documentar a nossa análise
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+library(magrittr)
+library(magick)
+library(ggplot2)
+library(dplyr)
+library(viridis)
+```
+
+```{r frink, eval = FALSE}
+image_read("https://jeroen.github.io/images/frink.png") %>%
+  image_rotate(270) %>%
+  image_background("blue", flatten = TRUE) %>%
+  image_border("red", "10x10") %>%
+  image_annotate("Linguagens de programação ainda\nsão linguagens!",
+                 color = "white", size = 30)
+```
+
+--
+
+.pull-left[
+#### Entrada
+<img src = "https://jeroen.github.io/images/frink.png" style="width:25%">
+]
+
+--
+
+.pull-right[
+#### Saída
+```{r frink-out, ref.label="frink", echo=FALSE}
+
+```
+
+]
+
+---
+class: middle, center
+# O código é texto
+
+---
+# Podemos copiar e colar
+
+<br>
+<center>
+<img src="img/copy-paste.png" style="width: 70%">
+</center>
+
+---
+class: middle, center
+
+# `r blue("Introdução")`
+### Por que o R?
+
+---
+
+## O ciclo da ciência de dados
+
+<img src="img/ciclo-ciencia-de-dados.png" style = "display: block; margin-left: auto; margin-right: auto;">
+
+---
+
+## O ciclo da ciência de dados com o R
+
+<img src="img/ciclo-ciencia-de-dados-pacotes.png" style = "display: block; margin-left: auto; margin-right: auto;">
+
+---
+class: middle, center
+
+# `r blue("Introdução")`
+### Guia da(o) mochileira(o)
+
+---
+# Pratique
+
+### O objetivo do curso é ajudar a quebrar inércia da etapa inicial de aprendizado. Assim como um idioma, o único jeito de aprender uma linguagem de programação é praticando.
+
+<img src="https://media.giphy.com/media/o0vwzuFwCGAFO/giphy.gif" style = "display: block; margin-left: auto; margin-right: auto;">
+
+---
+# Tirando dúvidas
+
+ - **Não existe dúvida idiota**.
+ 
+ - Nem sempre é trivial fazer a pergunta certa para que outra pessoa esclareça a sua dúvida. Neste curso, **vamos mostrar melhores práticas na hora de fazer perguntas sobre programação**.
+ 
+ - Fora do horário de aula ou monitoria:
+     - perguntas gerais sobre o curso deverão ser feitas no Classroom.
+     
+     - perguntas sobre R, principalmente as que envolverem código, deverão ser enviadas no [nosso discourse](https://discourse.curso-r.com/).
+
+- [Veja aqui dicas de como fazer uma boa pergunta](https://discourse.curso-r.com/t/como-escrever-uma-boa-pergunta/542).
+
+---
+# Por que usar o discourse?
+
+- Muito melhor para escrever textos que possuem códigos. Com ele, podemos usar o pacote `{reprex}`!
+
+- Saber pesquisar sobre erros e fazer a pergunta certa é essencial para aprender e resolver problemas de programação.
+
+- No discourse, teremos mais pessoas acompanhando e respondendo as dúvidas.
+
+- Em um ambiente aberto, as suas dúvidas vão contribuir com a comunidade.
+
+### https://discourse.curso-r.com/
+
+---
+# Regras, boas práticas e estilo
+
+<br>
+
+Na grande maioria das vezes, você poderá resolver uma tarefa de diversas maneiras. Isso porque, apesar de existirem várias **regras**, linguagens de programação também possuem **boas práticas** e **estilos**.
+
+- Regras: devem ser seguidas para o código funcionar (sintaxe, vocabulário)
+
+- Boas práticas: recomenda-se seguir para a criação de códigos legíveis (espaçamento, nomes, organização)
+
+- Estilo: cada um pode escolher aquele com o qual se sentir mais à vontade (tipos de indentação, formatação)
