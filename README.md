@@ -48,5 +48,7 @@ CursoR::atualizar_material()
 
 ## Scripts usados em aula
 
-| script | link |
-| :----- | :--- |
+| script                | link                                                                             |
+| :-------------------- | :------------------------------------------------------------------------------- |
+| 00-primeiros-passos.R | <https://curso-r.github.io/202010-r4ds-1/exemplos_de_aula/00-primeiros-passos.R> |
+| 01-introducao-ao-R.R  | <https://curso-r.github.io/202010-r4ds-1/exemplos_de_aula/01-introducao-ao-R.R>  |
