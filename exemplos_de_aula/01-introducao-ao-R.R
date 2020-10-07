@@ -23,13 +23,21 @@
 
 # Salvando o valor 1 no objeto "obj"
 obj <- 1
+# obj2 = 1
 obj
+
+# Exemplo do output [1]
+letters
 
 # Também dizemos 'guardando as saídas'
 soma <- 2 + 2
 soma
 
+soma + 2
+
+
 # ATALHO para a <- : ALT - (alt menos)
+
 
 # O R difencia minúscula de maiúscula!
 
@@ -45,6 +53,12 @@ resultado <- 33 / 11
 
 # atualizar um objeto
 resultado <- resultado * 5
+
+
+# é melhor salvar com outro nome!
+resultado <- 33 / 11
+
+resultado2 <- resultado * 5
 
 # Os nomes devem começar com uma letra.
 # Podem conter letras, números, _ e .
@@ -75,7 +89,12 @@ E_algumasPoucas.Pessoas_RENUNCIAMconvenções
 
 # 1. Multiplique a sua idade por 12 e salve em um objeto chamado "meses".
 
+meses <- 36 * 12
+meses
 
+
+meses <- 44*12
+meses
 
 # Classes -----------------------------------------------------------------
 
@@ -126,6 +145,8 @@ class(falso)
 
 vetor1 <- c(1, 4, 3, 10)
 vetor2 <- c("a", "b", "z")
+
+texto <- 'a' # aspas simples funcionam para texto
 
 vetor1
 vetor2
@@ -191,6 +212,7 @@ as.character(c(TRUE, FALSE, FALSE))
 # Naturalmente, podemos fazer operações matemáticas com vetores
 
 vetor <- c(0, 5, 20,-3)
+vetor
 
 vetor + 1
 vetor - 1
@@ -210,11 +232,13 @@ vetor1  + vetor2
 vetor1 <- c(1, 2)
 vetor2 <- c(10, 20, 30, 40)
 
+vetor1 + vetor2
+
 # Esse comportamento é chamado de reciclagem.
 
 # As coisas ficam um pouco mais confusas quando os comprimentos
 # dos vetores não são múltiplos
-
+# O código abaixo funcionará porém terá uma mensagem de WARNING!
 vetor1 <- c(1, 2, 3)
 vetor2 <- c(10, 20, 30, 40, 50)
 
@@ -225,17 +249,29 @@ vetor1 + vetor2
 # a. Guarde em um objeto uma sequência de números que comece
 # em 0 e termine em 5.
 
+a <- c(0:5)
+a
+
+a1 <- 0:5
+
 # b. Use subsetting para fazer o R devolver o primeiro número dessa sequência.
 # Em seguida, faça o R devolver o último número da sequência.
 
+a[1]
+a[6]
+
 # c. Multiplique todos os valores do vetor por -1. Guarde o resultado em
 # um novo objeto chamado 'versao_negativa'.
+
+versao_negativa <- a * -1
+versao_negativa
 
 # Comparações lógicas ------------------------------------------------------
 
 # Valores lógicos
 
 class(TRUE)
+
 class(FALSE)
 
 # TRUE e FALSE são nomes reservados
@@ -268,6 +304,9 @@ x < 0
 x < 1
 x <= 1
 
+# ==
+# !=
+
 # Diferente
 x != 1
 x != 2
@@ -275,7 +314,7 @@ x != 2
 x %in% c(1, 2, 3)
 "a" %in% c("b", "c")
 
-# Comprações lógicas serão a base dos filtros!
+# Comparações lógicas serão a base dos filtros!
 
 avaliacao_do_cliente <- c(1, 3, 0, 10, 2, 5, 20)
 estado_de_nascimento <- c("SP", "PB", "PB", "RJ", "MT", "MT")
@@ -283,8 +322,10 @@ estado_de_nascimento <- c("SP", "PB", "PB", "RJ", "MT", "MT")
 avaliacao_do_cliente > 3
 estado_de_nascimento %in% c("SP", "MT")
 
+avaliacao_do_cliente[1]
 avaliacao_do_cliente[avaliacao_do_cliente > 3]
 avaliacao_do_cliente[estado_de_nascimento %in% c("SP", "MT")]
+
 
 
 # Exercícios --------------------------------------------------------------
@@ -294,7 +335,11 @@ avaliacao_do_cliente[estado_de_nascimento %in% c("SP", "MT")]
 
 vetor <- c(4, 8, 15, 16, 23, 42)
 
+vetor[vetor >= 10]
 
+# Ctrl + Shift + A - atalho para boa formatação de código legível (ex. espaços)
+
+# Paramos a aula 1 aqui!--------------------------------------------------
 # Valores especiais -------------------------------------------------------
 
 # Existem valores reservados para representar dados faltantes,
@@ -480,11 +525,11 @@ minha_soma <- function(x, y) {
   # códigos de R
   # códigos de R
   # códigos de R
-  
+
   soma <- x + y
-  
+
   return(soma)
-  
+
 }
 
 minha_soma(30, 22)
