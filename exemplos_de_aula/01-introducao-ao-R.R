@@ -340,6 +340,10 @@ vetor[vetor >= 10]
 # Ctrl + Shift + A - atalho para boa formatação de código legível (ex. espaços)
 
 # Paramos a aula 1 aqui!--------------------------------------------------
+
+
+
+
 # Valores especiais -------------------------------------------------------
 
 # Existem valores reservados para representar dados faltantes,
@@ -349,6 +353,7 @@ NA   # (Not Available) significa dado faltante/indisponível.
 
 NaN  # (Not a Number) representa indefinições matemáticas, como 0/0 e log(-1).
 # Um NaN é um NA, mas a recíproca não é verdadeira.
+0/0
 
 Inf  # (Infinito) é um número muito grande ou o limite matemático, por exemplo,
 # 1/0 e 10^310. Aceita sinal negativo -Inf.
@@ -380,6 +385,8 @@ is.nan(0 / 0)
 idades <- c(15, 64, 31, NA, 59)
 is.na(idades)
 
+idades[!is.na(idades)]
+
 is.nan(NaN)
 is.infinite(10 ^ 309)
 is.null(NULL)
@@ -391,6 +398,7 @@ is.null(NULL)
 
 # a função `c()` foi utilizada para criar vetores;
 # a função `class()` foi utilizada para descobrir a classe de um objeto;
+
 
 # Argumentos
 
@@ -406,7 +414,7 @@ seq(4, 10, 2)
 seq(by = 2, to = 10, from = 4)
 seq(2, 10, 4)
 
-? seq
+?seq
 help(seq)
 
 
@@ -418,12 +426,13 @@ mean(c(1, 2))
 # Exemplo 2
 
 mean(c(1, 2, NA))
-mean(c(1, 2, NA), rm = TRUE)
-
+mean(c(1, 2, NA), na.rm = TRUE)
+?mean
 
 # Data frames -------------------------------------------------------------
 
 mtcars
+View(mtcars)
 
 # vamos aprender tudo com calma mais pra frente...
 class(mtcars)
@@ -431,6 +440,8 @@ class(mtcars)
 str(iris)
 
 head(mtcars)
+
+tail(mtcars)
 
 View(mtcars)
 
@@ -448,17 +459,28 @@ mtcars
 
 # Selecionando uma coluna do data frame
 
+mtcars$cyl
+
 mtcars$mpg
 mtcars$disp
+
+mean(mtcars$hp)
+
 
 mtcars[["mpg"]]
 mtcars[["cyl"]]
 
+head(mtcars)
+
 mtcars[[1]]
 mtcars[[2]]
 
-mtcars[, 1]
-mtcars[, 2]
+mtcars$mpg[1]
+
+mtcars[ , 1]
+mtcars[ , 2]
+
+mtcars[1, ]
 
 # A classe data frame tem uma característica especial: dimensão
 
@@ -469,33 +491,41 @@ dim(vetor)
 
 # Subsetting em objetos com 2 dimensões
 
-# Sinxtaxe: data_frame[indice_linha, indice_coluna]
+# Sintaxe: data_frame[indice_linha, indice_coluna]
 
 mtcars[1, 1]
-mtcars[, 1]
+mtcars[ , 1]
 mtcars[1, ]
+
 
 # Selecionando colunas
 
-mtcars[, c(1, 2)]
-mtcars[, c("mpg", "am")]
+mtcars[ , c(1, 2)]
+mtcars[ , c("mpg", "am")]
+
+mtcars[ , c("mpg", "am")]
 
 # Filtrando linhas
 
 mtcars$cyl
 mtcars$cyl == 4
 
-mtcars[mtcars$cyl == 4,]
-mtcars[mtcars$mpg > 25,]
+mtcars[mtcars$cyl == 4,    ]
+mtcars[mtcars$mpg > 25,    ]
 
 # Veremos E e OU com mais detalhes na hora do filter()
-mtcars[mtcars$mpg > 25 | mtcars$cyl == 4,]
-mtcars[mtcars$mpg > 25 & mtcars$cyl == 4,]
+
+mtcars[mtcars$mpg > 25 & mtcars$cyl == 4,   ]
+
+
+mtcars[mtcars$mpg > 25 | mtcars$cyl == 4,  ]
+
+
 
 # Continuação sobre Funções -------------
 
 cor(mtcars$mpg, mtcars$wt)
-cor(c(1, 3, 2), c(3, NA, 10), na.rm = TRUE)
+cor(c(1, 3, 2), c(3, NA, 10))
 
 log(5)
 log(c(3, 5))
@@ -511,14 +541,24 @@ mean(log(mtcars$mpg))
 
 # Criando funções ------------------------------------------------
 
+# nome <- function(argumentos){
+#   códigos que vão ser executados
+#
+#   ultimo valor retorna
+# }
+
 # uma f(x) = a + x*b
-f <- function(x) {
+f <- function(x = 1) {
   2 + 3 * x
 }
 
 f(0)
 f(1)
 f(1:10)
+
+f(x = 0)
+
+f()
 
 minha_soma <- function(x, y) {
   # códigos de R
@@ -538,13 +578,16 @@ minha_soma(30, 22)
 # não precisa ser só numeros, os argumentos podem ser qualquer coisa
 cola_dois_textos <- function(x, y) {
   paste0(x, y)
+ # funcao(....)
 }
 
 cola_dois_textos("alo", "ola")
 
+cola_dois_textos(y = "Beatriz", x = "Milz")
+
 # um exemplo com argumento que tem valor pré-definido
-duplica_data_frame <- function(df, quiser_empilhar = FALSE) {
-  if (empilhar) {
+duplica_data_frame <- function(df, empilhar = TRUE) {
+  if (empilhar == TRUE) {
     rbind(df, df)
   } else {
     cbind(df, df)
@@ -553,13 +596,19 @@ duplica_data_frame <- function(df, quiser_empilhar = FALSE) {
 
 mini_data_frame <- mtcars[1:3, 1:3]
 duplica_data_frame(mini_data_frame)
-duplica_data_frame(mini_data_frame, empilhar = TRUE)
+duplica_data_frame(mini_data_frame, empilhar = 4)
 
 # Exercícios --------------------------------------------------------------
 
 # 1. Use a funcao 'sum' para somar os valores de 1 a 100
+sum(1:100)
 
 # 2. Agora tire a média (mean) dos quadrados (^2) da coluna mtcars$mpg.
+
+mean(mtcars$mpg ^ 2)
+
+# é possível arredondar
+round(mean(mtcars$mpg ^ 2), 1)
 
 # Pacotes -----------------------------------------------------------------
 
@@ -581,14 +630,16 @@ install.packages(
     "jsonlite"
   )
 )
+# install.packages("googlesheets4") # pedir para baixar
 
 # Pacotes que não são oficiais
 remotes::install_github("curso-r/CursoR")
 
 # Para carregar pacotes
 library(tidyverse)
-library(dplyr)
+library(tidyverse)
+#library(dplyr)
 
 # Também é possível acessar as funções usando ::
-dplyr::filter_at()
-dplyr::transmute()
+# dplyr::filter_at()
+# dplyr::transmute()
