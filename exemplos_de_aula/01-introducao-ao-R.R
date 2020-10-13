@@ -23,13 +23,21 @@
 
 # Salvando o valor 1 no objeto "obj"
 obj <- 1
+# obj2 = 1
 obj
+
+# Exemplo do output [1]
+letters
 
 # Também dizemos 'guardando as saídas'
 soma <- 2 + 2
 soma
 
+soma + 2
+
+
 # ATALHO para a <- : ALT - (alt menos)
+
 
 # O R difencia minúscula de maiúscula!
 
@@ -45,6 +53,12 @@ resultado <- 33 / 11
 
 # atualizar um objeto
 resultado <- resultado * 5
+
+
+# é melhor salvar com outro nome!
+resultado <- 33 / 11
+
+resultado2 <- resultado * 5
 
 # Os nomes devem começar com uma letra.
 # Podem conter letras, números, _ e .
@@ -75,7 +89,12 @@ E_algumasPoucas.Pessoas_RENUNCIAMconvenções
 
 # 1. Multiplique a sua idade por 12 e salve em um objeto chamado "meses".
 
+meses <- 36 * 12
+meses
 
+
+meses <- 44*12
+meses
 
 # Classes -----------------------------------------------------------------
 
@@ -126,6 +145,8 @@ class(falso)
 
 vetor1 <- c(1, 4, 3, 10)
 vetor2 <- c("a", "b", "z")
+
+texto <- 'a' # aspas simples funcionam para texto
 
 vetor1
 vetor2
@@ -191,6 +212,7 @@ as.character(c(TRUE, FALSE, FALSE))
 # Naturalmente, podemos fazer operações matemáticas com vetores
 
 vetor <- c(0, 5, 20,-3)
+vetor
 
 vetor + 1
 vetor - 1
@@ -210,11 +232,13 @@ vetor1  + vetor2
 vetor1 <- c(1, 2)
 vetor2 <- c(10, 20, 30, 40)
 
+vetor1 + vetor2
+
 # Esse comportamento é chamado de reciclagem.
 
 # As coisas ficam um pouco mais confusas quando os comprimentos
 # dos vetores não são múltiplos
-
+# O código abaixo funcionará porém terá uma mensagem de WARNING!
 vetor1 <- c(1, 2, 3)
 vetor2 <- c(10, 20, 30, 40, 50)
 
@@ -225,17 +249,29 @@ vetor1 + vetor2
 # a. Guarde em um objeto uma sequência de números que comece
 # em 0 e termine em 5.
 
+a <- c(0:5)
+a
+
+a1 <- 0:5
+
 # b. Use subsetting para fazer o R devolver o primeiro número dessa sequência.
 # Em seguida, faça o R devolver o último número da sequência.
 
+a[1]
+a[6]
+
 # c. Multiplique todos os valores do vetor por -1. Guarde o resultado em
 # um novo objeto chamado 'versao_negativa'.
+
+versao_negativa <- a * -1
+versao_negativa
 
 # Comparações lógicas ------------------------------------------------------
 
 # Valores lógicos
 
 class(TRUE)
+
 class(FALSE)
 
 # TRUE e FALSE são nomes reservados
@@ -268,6 +304,9 @@ x < 0
 x < 1
 x <= 1
 
+# ==
+# !=
+
 # Diferente
 x != 1
 x != 2
@@ -275,7 +314,7 @@ x != 2
 x %in% c(1, 2, 3)
 "a" %in% c("b", "c")
 
-# Comprações lógicas serão a base dos filtros!
+# Comparações lógicas serão a base dos filtros!
 
 avaliacao_do_cliente <- c(1, 3, 0, 10, 2, 5, 20)
 estado_de_nascimento <- c("SP", "PB", "PB", "RJ", "MT", "MT")
@@ -283,8 +322,10 @@ estado_de_nascimento <- c("SP", "PB", "PB", "RJ", "MT", "MT")
 avaliacao_do_cliente > 3
 estado_de_nascimento %in% c("SP", "MT")
 
+avaliacao_do_cliente[1]
 avaliacao_do_cliente[avaliacao_do_cliente > 3]
 avaliacao_do_cliente[estado_de_nascimento %in% c("SP", "MT")]
+
 
 
 # Exercícios --------------------------------------------------------------
@@ -293,6 +334,14 @@ avaliacao_do_cliente[estado_de_nascimento %in% c("SP", "MT")]
 # ou iguais a 10 do vetor abaixo:
 
 vetor <- c(4, 8, 15, 16, 23, 42)
+
+vetor[vetor >= 10]
+
+# Ctrl + Shift + A - atalho para boa formatação de código legível (ex. espaços)
+
+# Paramos a aula 1 aqui!--------------------------------------------------
+
+
 
 
 # Valores especiais -------------------------------------------------------
@@ -304,6 +353,7 @@ NA   # (Not Available) significa dado faltante/indisponível.
 
 NaN  # (Not a Number) representa indefinições matemáticas, como 0/0 e log(-1).
 # Um NaN é um NA, mas a recíproca não é verdadeira.
+0/0
 
 Inf  # (Infinito) é um número muito grande ou o limite matemático, por exemplo,
 # 1/0 e 10^310. Aceita sinal negativo -Inf.
@@ -335,6 +385,8 @@ is.nan(0 / 0)
 idades <- c(15, 64, 31, NA, 59)
 is.na(idades)
 
+idades[!is.na(idades)]
+
 is.nan(NaN)
 is.infinite(10 ^ 309)
 is.null(NULL)
@@ -346,6 +398,7 @@ is.null(NULL)
 
 # a função `c()` foi utilizada para criar vetores;
 # a função `class()` foi utilizada para descobrir a classe de um objeto;
+
 
 # Argumentos
 
@@ -361,7 +414,7 @@ seq(4, 10, 2)
 seq(by = 2, to = 10, from = 4)
 seq(2, 10, 4)
 
-? seq
+?seq
 help(seq)
 
 
@@ -373,12 +426,13 @@ mean(c(1, 2))
 # Exemplo 2
 
 mean(c(1, 2, NA))
-mean(c(1, 2, NA), rm = TRUE)
-
+mean(c(1, 2, NA), na.rm = TRUE)
+?mean
 
 # Data frames -------------------------------------------------------------
 
 mtcars
+View(mtcars)
 
 # vamos aprender tudo com calma mais pra frente...
 class(mtcars)
@@ -386,6 +440,8 @@ class(mtcars)
 str(iris)
 
 head(mtcars)
+
+tail(mtcars)
 
 View(mtcars)
 
@@ -403,17 +459,28 @@ mtcars
 
 # Selecionando uma coluna do data frame
 
+mtcars$cyl
+
 mtcars$mpg
 mtcars$disp
+
+mean(mtcars$hp)
+
 
 mtcars[["mpg"]]
 mtcars[["cyl"]]
 
+head(mtcars)
+
 mtcars[[1]]
 mtcars[[2]]
 
-mtcars[, 1]
-mtcars[, 2]
+mtcars$mpg[1]
+
+mtcars[ , 1]
+mtcars[ , 2]
+
+mtcars[1, ]
 
 # A classe data frame tem uma característica especial: dimensão
 
@@ -424,33 +491,41 @@ dim(vetor)
 
 # Subsetting em objetos com 2 dimensões
 
-# Sinxtaxe: data_frame[indice_linha, indice_coluna]
+# Sintaxe: data_frame[indice_linha, indice_coluna]
 
 mtcars[1, 1]
-mtcars[, 1]
+mtcars[ , 1]
 mtcars[1, ]
+
 
 # Selecionando colunas
 
-mtcars[, c(1, 2)]
-mtcars[, c("mpg", "am")]
+mtcars[ , c(1, 2)]
+mtcars[ , c("mpg", "am")]
+
+mtcars[ , c("mpg", "am")]
 
 # Filtrando linhas
 
 mtcars$cyl
 mtcars$cyl == 4
 
-mtcars[mtcars$cyl == 4,]
-mtcars[mtcars$mpg > 25,]
+mtcars[mtcars$cyl == 4,    ]
+mtcars[mtcars$mpg > 25,    ]
 
 # Veremos E e OU com mais detalhes na hora do filter()
-mtcars[mtcars$mpg > 25 | mtcars$cyl == 4,]
-mtcars[mtcars$mpg > 25 & mtcars$cyl == 4,]
+
+mtcars[mtcars$mpg > 25 & mtcars$cyl == 4,   ]
+
+
+mtcars[mtcars$mpg > 25 | mtcars$cyl == 4,  ]
+
+
 
 # Continuação sobre Funções -------------
 
 cor(mtcars$mpg, mtcars$wt)
-cor(c(1, 3, 2), c(3, NA, 10), na.rm = TRUE)
+cor(c(1, 3, 2), c(3, NA, 10))
 
 log(5)
 log(c(3, 5))
@@ -466,8 +541,14 @@ mean(log(mtcars$mpg))
 
 # Criando funções ------------------------------------------------
 
+# nome <- function(argumentos){
+#   códigos que vão ser executados
+#
+#   ultimo valor retorna
+# }
+
 # uma f(x) = a + x*b
-f <- function(x) {
+f <- function(x = 1) {
   2 + 3 * x
 }
 
@@ -475,16 +556,20 @@ f(0)
 f(1)
 f(1:10)
 
+f(x = 0)
+
+f()
+
 minha_soma <- function(x, y) {
   # códigos de R
   # códigos de R
   # códigos de R
   # códigos de R
-  
+
   soma <- x + y
-  
+
   return(soma)
-  
+
 }
 
 minha_soma(30, 22)
@@ -493,13 +578,16 @@ minha_soma(30, 22)
 # não precisa ser só numeros, os argumentos podem ser qualquer coisa
 cola_dois_textos <- function(x, y) {
   paste0(x, y)
+ # funcao(....)
 }
 
 cola_dois_textos("alo", "ola")
 
+cola_dois_textos(y = "Beatriz", x = "Milz")
+
 # um exemplo com argumento que tem valor pré-definido
-duplica_data_frame <- function(df, quiser_empilhar = FALSE) {
-  if (empilhar) {
+duplica_data_frame <- function(df, empilhar = TRUE) {
+  if (empilhar == TRUE) {
     rbind(df, df)
   } else {
     cbind(df, df)
@@ -508,13 +596,19 @@ duplica_data_frame <- function(df, quiser_empilhar = FALSE) {
 
 mini_data_frame <- mtcars[1:3, 1:3]
 duplica_data_frame(mini_data_frame)
-duplica_data_frame(mini_data_frame, empilhar = TRUE)
+duplica_data_frame(mini_data_frame, empilhar = 4)
 
 # Exercícios --------------------------------------------------------------
 
 # 1. Use a funcao 'sum' para somar os valores de 1 a 100
+sum(1:100)
 
 # 2. Agora tire a média (mean) dos quadrados (^2) da coluna mtcars$mpg.
+
+mean(mtcars$mpg ^ 2)
+
+# é possível arredondar
+round(mean(mtcars$mpg ^ 2), 1)
 
 # Pacotes -----------------------------------------------------------------
 
@@ -536,14 +630,16 @@ install.packages(
     "jsonlite"
   )
 )
+# install.packages("googlesheets4") # pedir para baixar
 
 # Pacotes que não são oficiais
 remotes::install_github("curso-r/CursoR")
 
 # Para carregar pacotes
 library(tidyverse)
-library(dplyr)
+library(tidyverse)
+#library(dplyr)
 
 # Também é possível acessar as funções usando ::
-dplyr::filter_at()
-dplyr::transmute()
+# dplyr::filter_at()
+# dplyr::transmute()
