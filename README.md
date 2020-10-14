@@ -54,3 +54,4 @@ CursoR::atualizar_material()
 | 00-primeiros-passos.R                     | <https://curso-r.github.io/202010-r4ds-1/exemplos_de_aula/00-primeiros-passos.R>                     |
 | 01-introducao-ao-R.R                      | <https://curso-r.github.io/202010-r4ds-1/exemplos_de_aula/01-introducao-ao-R.R>                      |
 | 02-controle-de-fluxo.R                    | <https://curso-r.github.io/202010-r4ds-1/exemplos_de_aula/02-controle-de-fluxo.R>                    |
+| 03-importacao.R                           | <https://curso-r.github.io/202010-r4ds-1/exemplos_de_aula/03-importacao.R>                           |
