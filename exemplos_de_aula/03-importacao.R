@@ -11,18 +11,33 @@ getwd()
 # Caminhos relativos
 "dados/imdb.csv"
 
-# (cara(o) professora(o), favor lembrar de falar da dica 
+"dados/imdb.csv"
+
+"dados/imdb.csv"
+
+# (cara(o) professora(o), favor lembrar de falar da dica
 # de navegação entre as aspas)
 
 # Tibbles -----------------------------------------------------------------
 
-airquality
+airquality_df <- airquality
+
+class(airquality)
+
+airquality_tbl <- as_tibble(airquality)
+
 class(as_tibble(airquality))
 
 # Lendo arquivos de texto -------------------------------------------------
 
 # CSV, separado por vírgula
 imdb_csv <- read_csv(file = "dados/imdb.csv")
+
+imdb_csv <- read_csv("dados/imdb.csv")
+
+class(imdb_csv)
+
+read_csv2("dados/imdb2.csv")
 
 # CSV, separado por ponto-e-vírgula
 imdb_csv2 <- read_csv2(file = "dados/imdb2.csv")
@@ -32,13 +47,13 @@ imdb_txt <- read_delim(file = "dados/imdb.txt", delim = "\t")
 
 # A função read_delim funciona para qualquer tipo de separador
 imdb_delim <- read_delim("dados/imdb.csv", delim = ",")
-imdb_delim <- read_delim("dados/imdb2.csv", delim = ";")
+imdb_delim2 <- read_delim("dados/imdb2.csv", delim = ";")
 
 # encoding
 # Natação UTF8
 # NataÃo!Â latin1
 tb_candidatura_csv <- read_csv2(
-  file = "dados/imdb2.csv", 
+  file = "dados/imdb2.csv",
   locale = locale(encoding = "UTF-8")
 )
 
@@ -47,12 +62,24 @@ imdb_csv <- read_csv("https://raw.githubusercontent.com/curso-r/202005-r4ds-1/ma
 
 # Interface point and click do RStudio também é útil!
 
+library(readr)
+imdb <- read_csv("dados/imdb.csv", locale = locale())
+View(imdb)
+
 # Lendo arquivos do Excel -------------------------------------------------
 
 library(readxl)
 
 imdb_excel <- read_excel("dados/imdb.xlsx")
 excel_sheets("dados/imdb.xlsx")
+
+
+# library(readxl)
+# url <- "http://orcamento.sf.prefeitura.sp.gov.br/orcamento/uploads/2020/basedadosexecucao2020.xlsx"
+# destfile <- "basedadosexecucao2020.xlsx"
+# curl::curl_download(url, destfile)
+# basedadosexecucao2020 <- read_excel(destfile)
+# View(basedadosexecucao2020)
 
 # Parâmetros úteis --------------------------------------------------------
 
@@ -93,16 +120,16 @@ readxl::read_excel(
   skip = 2,
   na = c("", "NT"),
   col_types = c(
-    "numeric", 
-    "guess", 
-    "guess", 
-    "guess", 
-    "guess", 
+    "numeric",
     "guess",
-    "guess", 
-    "guess", 
-    "guess", 
-    "guess", 
+    "guess",
+    "guess",
+    "guess",
+    "guess",
+    "guess",
+    "guess",
+    "guess",
+    "guess",
     "guess"
   )
 )
@@ -115,31 +142,78 @@ mtcars_cru <- readxl::read_excel(
   na = c("", "NT")
 )
 
-mtcars$mpg <- as.numeric(mtcars$mpg)
+mtcars_cru$mpg <- as.numeric(mtcars_cru$mpg)
 
+mtcars_cru
 # as.numeric()
 # as.character()
 # as.Date()
 
+
+# USANDO IMPORT DATASET FROM EXCEL
+
+library(readxl)
+mtcars_import <-
+  read_excel(
+    "dados/mtcars_desconfigurado.xlsx",
+    sheet = "Sheet1",
+    col_types = c(
+      "numeric",
+      "text",
+      "numeric",
+      "numeric",
+      "numeric",
+      "numeric",
+      "numeric",
+      "numeric",
+      "numeric",
+      "numeric",
+      "numeric"
+    ),
+    na = "NT",
+    skip = 2
+  )
+
+mtcars_import
 # Outros formatos ---------------------------------------------------------
 
 library(jsonlite)
 imdb_json <- read_json("dados/imdb.json")
 
+imdb_json <- read_json("dados/imdb.json", simplifyVector = TRUE)
+
+
 library(haven)
 imdb_sas <- read_sas("dados/imdb.sas7bdat")
 imdb_spss <- read_spss("dados/imdb.sav")
 
+library(googlesheets4)
+imdb_google_sheets <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1x9pXr4QAnY1nHcH03Kne7oXlEqSKV8N12nuDMQ7ep0U/edit?usp=sharing")
+
+form <- googlesheets4::read_sheet("https://docs.google.com/spreadsheets/d/1Uozm8QeC6XURmMN-h8CVBwT1XLaa9wYyiyyA3YBHJR0/edit?usp=sharing")
+form
+
 # Gravando dados ----------------------------------------------------------
+
+imdb <- read_csv("dados/imdb.csv")
+
 
 # As funções iniciam com 'write'
 
+# Criar uma pasta
+dir.create("output")
+
 # CSV
-write_csv(imdb, path = "imdb.csv")
+write_csv(imdb, file = "output/imdb.csv")
 
 # Excel
 library(writexl)
-write_xlsx(imdb, path = "imdb.xlsx")
+write_xlsx(imdb, path = "output/imdb.xlsx")
+
+write_xlsx(form, path = "output/form.xlsx")
+
+
+
 
 # O formato rds -----------------------------------------------------------
 
@@ -147,7 +221,7 @@ write_xlsx(imdb, path = "imdb.xlsx")
 # Você pode salvar qualquer objeto do R em formato .rds
 
 imdb_rds <- readr::read_rds("dados/imdb.rds")
-readr::write_rds(imdb_rds, path = "dados/imdb_rds.rds")
+readr::write_rds(imdb_rds, file = "output/imdb_rds.rds")
 
 # Conexão com banco de dados e SQL ----------------------------------------
 
