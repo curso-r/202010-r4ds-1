@@ -8,7 +8,7 @@ imdb <- read_rds("dados/imdb.rds")
 
 # Jeito de ver a base -----------------------------------------------------
 
-glimpse(imdb)
+dplyr::glimpse(imdb)
 names(imdb)
 View(imdb)
 
@@ -26,6 +26,10 @@ View(imdb)
 
 select(imdb, titulo)
 
+imdb_titulo <- select(imdb, titulo)
+
+# imdb <- select(imdb, titulo)
+
 # A operação NÃO MODIFICA O OBJETO imdb
 
 imdb
@@ -38,8 +42,15 @@ select(imdb, titulo:cor)
 
 # Funções auxiliares
 
+select(imdb, ator_1, ator_2, ator_3)
+
+select(imdb, ator_1:ator_3)
+
 select(imdb, starts_with("ator"))
 select(imdb, contains("to"))
+
+relocate()
+select(imdb, ano, everything())
 
 # Principais funções auxiliares
 
@@ -49,20 +60,27 @@ select(imdb, contains("to"))
 
 # Selecionando colunas por exclusão
 
+select(imdb, -starts_with("ator"), -titulo, - ends_with("s"))
+
 select(imdb, -starts_with("ator"), -titulo, -ends_with("s"))
 
 
 # Exercícios --------------------------------------------------------------
 
-# 1. Crie uma tabela com apenas as colunas titulo, diretor, 
+# 1. Crie uma tabela com apenas as colunas titulo, diretor,
 # e orcamento. Salve em um objeto chamado imdb_simples.
+
+imdb_simples <- select(imdb, titulo, diretor, orcamento)
+imdb_simples
 
 # 2. Selecione apenas as colunas ator_1, ator_2 e ator_3 usando
 # o ajudante contains().
 
+select(imdb, contains("ator_"))
+
 # arrange -----------------------------------------------------------------
 
-# Ordenando linhas de forma crescente de acordo com 
+# Ordenando linhas de forma crescente de acordo com
 # os valores de uma coluna
 
 arrange(imdb, orcamento)
@@ -71,7 +89,7 @@ arrange(imdb, orcamento)
 
 arrange(imdb, desc(orcamento))
 
-# Ordenando de acordo com os valores 
+# Ordenando de acordo com os valores
 # de duas colunas
 
 arrange(imdb, desc(ano), orcamento)
@@ -81,15 +99,15 @@ arrange(imdb, desc(ano), orcamento)
 df <- tibble(x = c(NA, 2, 1), y = c(1, 2, 3))
 arrange(df, x)
 arrange(df, desc(x))
-  
+
 
 # Exercícios --------------------------------------------------------------
 
-# 1. Ordene os filmes em ordem crescente de ano e 
-# decrescente de receita e salve em um objeto 
+# 1. Ordene os filmes em ordem crescente de ano e
+# decrescente de receita e salve em um objeto
 # chamado filmes_ordenados.
 
-# 2. Selecione apenas as colunas título e orçamento 
+# 2. Selecione apenas as colunas título e orçamento
 # e então ordene de forma decrescente pelo orçamento.
 
 # Pipe (%>%) --------------------------------------------------------------
@@ -102,7 +120,7 @@ arrange(df, desc(x))
 x %>% f() %>% g()   # CERTO
 x %>% f(x) %>% g(x) # ERRADO
 
-# Receita de bolo sem pipe. 
+# Receita de bolo sem pipe.
 # Tente entender o que é preciso fazer.
 
 esfrie(
@@ -112,24 +130,24 @@ esfrie(
         acrescente(
           recipiente(
             rep(
-              "farinha", 
+              "farinha",
               2
-            ), 
+            ),
             "água", "fermento", "leite", "óleo"
-          ), 
+          ),
           "farinha", até = "macio"
-        ), 
+        ),
         duração = "3min"
-      ), 
+      ),
       lugar = "forma", tipo = "grande", untada = TRUE
-    ), 
+    ),
     duração = "50min"
-  ), 
+  ),
   "geladeira", "20min"
 )
 
-# Veja como o código acima pode ser reescrito 
-# utilizando-se o pipe. 
+# Veja como o código acima pode ser reescrito
+# utilizando-se o pipe.
 # Agora realmente se parece com uma receita de bolo.
 
 recipiente(rep("farinha", 2), "água", "fermento", "leite", "óleo") %>%
@@ -146,7 +164,7 @@ recipiente(rep("farinha", 2), "água", "fermento", "leite", "óleo") %>%
 
 # Refaça o exercício 2 do arrange utilizando o %>%.
 
-# 2. Selecione apenas as colunas título e orçamento 
+# 2. Selecione apenas as colunas título e orçamento
 # e então ordene de forma decrescente pelo orçamento.
 
 # filter ------------------------------------------------------------------
@@ -202,36 +220,36 @@ str_detect(
   pattern = "Action"
 )
 
-## Pegando apenas os filmes que 
+## Pegando apenas os filmes que
 ## tenham o gênero ação
 imdb %>% filter(str_detect(generos, "Action"))
 
 # Exercícios --------------------------------------------------------------
 
-# 1. Criar um objeto chamado `filmes_pb` apenas com filmes 
+# 1. Criar um objeto chamado `filmes_pb` apenas com filmes
 # preto e branco. (==)
-# dica: use unique(), count(), distinct() ou table() pra descobrir como que "preto e branco" 
-# está representado na tabela.  
+# dica: use unique(), count(), distinct() ou table() pra descobrir como que "preto e branco"
+# está representado na tabela.
 
-# 2. Criar um objeto chamado curtos_legais com filmes 
+# 2. Criar um objeto chamado curtos_legais com filmes
 # de 90 minutos ou menos de duração e nota no imdb maior do que 8.5.
 
 # mutate ------------------------------------------------------------------
 
 # Modificando uma coluna
 
-imdb %>% 
-  mutate(duracao = duracao/60) %>% 
+imdb %>%
+  mutate(duracao = duracao/60) %>%
   View()
 
 # Criando uma nova coluna
 
-imdb %>% 
-  mutate(duracao_horas = duracao/60) %>% 
+imdb %>%
+  mutate(duracao_horas = duracao/60) %>%
   View()
 
-imdb %>% 
-  mutate(lucro = receita - orcamento) %>% 
+imdb %>%
+  mutate(lucro = receita - orcamento) %>%
   View()
 
 # A função ifelse é uma ótima ferramenta
@@ -240,7 +258,7 @@ imdb %>%
 imdb %>% mutate(
   lucro = receita - orcamento,
   houve_lucro = ifelse(lucro > 0, "Sim", "Não")
-) %>% 
+) %>%
   View()
 
 
@@ -252,7 +270,7 @@ imdb %>% mutate(
 # e ordene a tabela por ordem crescente de prejuízo.
 # mutate, filter, arrange
 
-# 2. Crie uma nova coluna que classifique o filme em 
+# 2. Crie uma nova coluna que classifique o filme em
 # "recente" (posterior a 2000) e "antigo" de 2000 para trás.
 # mutate, ifelse
 
@@ -306,8 +324,8 @@ n_distinct()
 imdb %>% group_by(cor)
 
 # Agrupando e sumarizando
-imdb %>% 
-  group_by(cor) %>% 
+imdb %>%
+  group_by(cor) %>%
   summarise(
     media_orcamento = mean(orcamento, na.rm = TRUE),
     media_receita = mean(receita, na.rm = TRUE),
@@ -317,24 +335,24 @@ imdb %>%
 
 # Exercícios --------------------------------------------------------------
 
-# 1. Calcule a duração média e mediana dos filmes 
+# 1. Calcule a duração média e mediana dos filmes
 # da base.
 # summarise
 
-# 2. Calcule o lucro médio dos filmes com duracao 
-# menor que 60 minutos. 
+# 2. Calcule o lucro médio dos filmes com duracao
+# menor que 60 minutos.
 # filter, summarise
 
-# 3. Apresente na mesma tabela o lucro médio 
+# 3. Apresente na mesma tabela o lucro médio
 # dos filmes com duracao menor que 60 minutos
-# e o lucro médio dos filmes com duracao maior 
+# e o lucro médio dos filmes com duracao maior
 # ou igual a 60 minutos.
 # mutate, group by, summarise
 
 # left join ---------------------------------------------------------------
 
 # A função left join serve para juntarmos duas
-# tabelas a partir de uma chave. 
+# tabelas a partir de uma chave.
 # Vamos ver um exemplo bem simples.
 
 band_members
@@ -350,9 +368,9 @@ band_members %>% left_join(band_instruments, by = "name")
 
 # Vamos calcular a média do lucro e o lucro máximo dos filmes
 # por diretor.
-tab_lucro_diretor <- imdb %>% 
-  mutate(lucro = receita - orcamento) %>% 
-  group_by(diretor) %>% 
+tab_lucro_diretor <- imdb %>%
+  mutate(lucro = receita - orcamento) %>%
+  group_by(diretor) %>%
   summarise(
     lucro_medio = mean(lucro, na.rm = TRUE),
     lucro_maximo = max(lucro, na.rm = TRUE),
@@ -369,7 +387,7 @@ tab_lucro_diretor <- imdb %>%
 left_join(imdb, tab_lucro_diretor, by = "diretor")
 
 # Salvando em um objeto
-imdb_com_lucro_medio <- imdb %>% 
+imdb_com_lucro_medio <- imdb %>%
   left_join(tab_lucro_diretor, by = "diretor")
 
 # Calculando o lucro relativo. Vamos usar a
@@ -380,12 +398,12 @@ scales::percent(0.05)
 scales::percent(0.5)
 scales::percent(1)
 
-imdb_com_lucro_medio %>% 
+imdb_com_lucro_medio %>%
   mutate(
     lucro = receita - orcamento,
     lucro_relativo = (lucro - lucro_medio)/lucro_medio,
     lucro_relativo = scales::percent(lucro_relativo)
-  ) %>% 
+  ) %>%
   View()
 
 # Fazendo de-para
@@ -395,11 +413,11 @@ depara_cores <- tibble(
   cor_em_ptBR = c("colorido", "preto e branco")
 )
 
-left_join(imdb, depara_cores, by = c("cor")) 
+left_join(imdb, depara_cores, by = c("cor"))
 
-imdb %>% 
-  left_join(depara_cores, by = c("cor")) %>% 
-  select(cor, cor_em_ptBR) %>% 
+imdb %>%
+  left_join(depara_cores, by = c("cor")) %>%
+  select(cor, cor_em_ptBR) %>%
   View()
 
 # OBS: existe uma família de joins
@@ -412,12 +430,12 @@ band_instruments %>% full_join(band_members)
 
 # Exercícios --------------------------------------------------------------
 
-# 1. Salve em um novo objeto uma tabela com a 
+# 1. Salve em um novo objeto uma tabela com a
 # nota média dos filmes de cada diretor. Essa tabela
 # deve conter duas colunas (diretor e nota_imdb_media)
 # e cada linha deve ser um diretor diferente.
 
-# 2. Use o left_join para trazer a coluna 
+# 2. Use o left_join para trazer a coluna
 # nota_imdb_media da tabela do exercício 1
 # para a tabela imdb original.
 
