@@ -2,9 +2,11 @@
 
 library(tidyverse)
 
+library(dplyr)
+
 # Base de dados -----------------------------------------------------------
 
-imdb <- read_rds("dados/imdb.rds")
+imdb <- readr::read_rds("dados/imdb.rds")
 
 # Jeito de ver a base -----------------------------------------------------
 
@@ -83,16 +85,20 @@ select(imdb, contains("ator_"))
 # Ordenando linhas de forma crescente de acordo com
 # os valores de uma coluna
 
-arrange(imdb, orcamento)
+View(arrange(imdb, orcamento))
+
+imdb_ord <- arrange(imdb, orcamento)
+
+# imdb <- arrange(imdb, orcamento)
 
 # Agora de forma decrescente
 
-arrange(imdb, desc(orcamento))
+View(arrange(imdb, desc(orcamento)))
 
 # Ordenando de acordo com os valores
 # de duas colunas
 
-arrange(imdb, desc(ano), orcamento)
+View(arrange(imdb, desc(ano), orcamento))
 
 # O que acontece com o NA?
 
@@ -107,12 +113,20 @@ arrange(df, desc(x))
 # decrescente de receita e salve em um objeto
 # chamado filmes_ordenados.
 
+filmes_ordenados <- arrange(imdb, ano, desc(receita))
+
 # 2. Selecione apenas as colunas título e orçamento
 # e então ordene de forma decrescente pelo orçamento.
+# Salve essa tabela em um objeto.
+
+imdb_select_arrange <- arrange(select(imdb, titulo, orcamento), desc(orcamento))
+
+imdb_select <- select(imdb, titulo, orcamento)
+imdb_arrange <- arrange(imdb_select, desc(orcamento))
 
 # Pipe (%>%) --------------------------------------------------------------
 
-# Transforma funçõe aninhadas em funções
+# Transforma funções aninhadas em funções
 # sequenciais
 
 # g(f(x)) = x %>% f() %>% g()
@@ -159,19 +173,52 @@ recipiente(rep("farinha", 2), "água", "fermento", "leite", "óleo") %>%
 
 # ATALHO DO %>%: CTRL (command) + SHIFT + M
 
-
 # Exercício ---------------------------------------------------------------
 
 # Refaça o exercício 2 do arrange utilizando o %>%.
-
 # 2. Selecione apenas as colunas título e orçamento
 # e então ordene de forma decrescente pelo orçamento.
 
+imdb_select_arrange <- arrange(select(imdb, titulo, orcamento), desc(orcamento))
+
+imdb_select <- select(imdb, titulo, orcamento)
+imdb_arrange <- arrange(imdb_select, desc(orcamento))
+
+imdb_select_arrange <- imdb %>%
+  select(titulo, orcamento) %>%
+  arrange(desc(orcamento))
+
+imdb$titulo
+select(imdb, titulo)
+
 # filter ------------------------------------------------------------------
 
+sum(c(1, 2, 3)) %>% sqrt()
+
+c(1, 2, 3) %>% sum() %>% sqrt()
+sum(c(1, 2, 3))
+
 # Filtrando uma coluna da base
-imdb %>% filter(nota_imdb > 9)
+
+View(filter(imdb, nota_imdb > 9))
+
+imdb %>% filter(nota_imdb > 9) %>% View
+
+imdb_filtrada <- imdb %>%
+  filter(nota_imdb > 9)
+
+# imdb %>% filter(nota_imdb > 9) -> imdb_filtrada
+
+# data.frame, base, tibble, dados, tabela: sinonimos
+# variável, coluna: sinonimos
+
 imdb %>% filter(diretor == "Quentin Tarantino")
+
+sum()
+mean()
+median()
+dp()
+var()
 
 # Vendo categorias de uma variável
 unique(imdb$cor) # saída é um vetor
@@ -180,8 +227,8 @@ imdb %>% distinct(cor) # saída é uma tibble
 # Filtrando duas colunas da base
 
 ## Recentes e com nota alta
-imdb %>% filter(ano > 2010, nota_imdb > 8.5)
-imdb %>% filter(ano > 2010 & nota_imdb > 8.5)
+imdb %>% filter(ano > 2010, nota_imdb > 8.5) %>% View()
+imdb %>% filter(ano > 2010 && nota_imdb > 8.5)
 
 ## Gastaram menos de 100 mil, faturaram mais de 1 milhão
 imdb %>% filter(orcamento < 100000, receita > 1000000)
@@ -190,10 +237,19 @@ imdb %>% filter(orcamento < 100000, receita > 1000000)
 imdb %>% filter(receita - orcamento > 0)
 
 ## Lucraram mais de 500 milhões OU têm nota muito alta
-imdb %>% filter(receita - orcamento > 500000000 | nota_imdb > 9)
+imdb %>% filter(receita - orcamento > 500000000 | nota_imdb > 9) %>% View
 
 # O operador %in%
-imdb %>% filter(ator_1 %in% c('Angelina Jolie Pitt', "Brad Pitt"))
+imdb %>% filter(ator_1 %in% c('Angelina Jolie Pitt', "Brad Pitt")) %>% View
+imdb %>% filter(ator_1 == 'Angelina Jolie Pitt' | ator_1 == "Brad Pitt") %>% View
+
+pitts <- c('Angelina Jolie Pitt', "Brad Pitt")
+
+vetor_de_atores <- imdb$ator_2
+
+imdb %>% filter(ator_1 %in% vetor_de_atores)
+
+imdb %>% filter(ator_1 %in% pitts & ator_2 %in% pitts) %>% View
 
 # Negação
 imdb %>% filter(diretor %in% c("Quentin Tarantino", "Steven Spielberg"))
@@ -204,25 +260,49 @@ imdb %>% filter(!diretor %in% c("Quentin Tarantino", "Steven Spielberg"))
 df <- tibble(x = c(1, NA, 3))
 
 filter(df, x > 1)
+filter(df, x > 1 | is.na(x))
+
 filter(df, is.na(x) | x > 1)
 
+df %>% filter(!is.na(x))
+
 # Filtrando texto sem correspondência exata
-# A função str_detect()
+# A função stringr::str_detect()
 textos <- c("a", "aa","abc", "bc", "A", NA)
 
-str_detect(textos, pattern = "a")
+# string, texto, conjunto de caracteres: sinônimos
+
+stringr::str_detect(textos, pattern = "a")
 
 ## Pegando os seis primeiros valores da coluna "generos"
 imdb$generos[1:6]
 
-str_detect(
+# Jeito dplyr
+# imdb %>%
+#   select(generos) %>%
+#   slice(1:6)
+
+stringr::str_detect(
   string = imdb$generos[1:6],
   pattern = "Action"
 )
 
+imdb %>% select(generos)
+
+imdb %>% filter(generos == "Action")
+
+imdb %>% filter(`==`(generos, "Action"))
+
 ## Pegando apenas os filmes que
 ## tenham o gênero ação
-imdb %>% filter(str_detect(generos, "Action"))
+imdb %>% filter(generos == "Action") %>% View()
+imdb %>% filter(stringr::str_detect(generos, "Action")) %>% View()
+
+imdb %>% filter(stringr::str_detect(generos, "Action") |
+                  stringr::str_detect(generos, "Sci-Fi")) %>%
+  View()
+
+imdb %>% filter(stringr::str_detect(generos, "Action"))
 
 # Exercícios --------------------------------------------------------------
 
@@ -231,15 +311,23 @@ imdb %>% filter(str_detect(generos, "Action"))
 # dica: use unique(), count(), distinct() ou table() pra descobrir como que "preto e branco"
 # está representado na tabela.
 
+unique(imdb$cor)
+
+filmes_pb <- imdb %>% filter(cor == "Black and White") %>% tibble::view()
+
 # 2. Criar um objeto chamado curtos_legais com filmes
 # de 90 minutos ou menos de duração e nota no imdb maior do que 8.5.
+
+curtos_legais <- imdb %>%
+  filter(duracao <= 90, nota_imdb > 8.5) %>%
+  tibble::view()
 
 # mutate ------------------------------------------------------------------
 
 # Modificando uma coluna
 
 imdb %>%
-  mutate(duracao = duracao/60) %>%
+  mutate(duracao = duracao / 60) %>%
   View()
 
 # Criando uma nova coluna
@@ -259,8 +347,10 @@ imdb %>% mutate(
   lucro = receita - orcamento,
   houve_lucro = ifelse(lucro > 0, "Sim", "Não")
 ) %>%
+  select(receita, orcamento, lucro, houve_lucro) %>%
   View()
 
+imdb %>% mutate(nova_coluna = "texto") %>% View()
 
 # Exercícios --------------------------------------------------------------
 
