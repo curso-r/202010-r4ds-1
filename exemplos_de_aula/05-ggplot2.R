@@ -15,6 +15,8 @@ imdb <- imdb %>% mutate(lucro = receita - orcamento)
 imdb %>%
   ggplot()
 
+ggplot(imdb)
+
 # Salvando em um objeto
 p <- imdb %>%
   ggplot()
@@ -22,8 +24,10 @@ p <- imdb %>%
 # Gráfico de dispersão da receita contra o orçamento
 imdb %>%
   ggplot() +
-  geom_point(mapping = aes(x = orcamento, y = receita))
+  geom_point(aes(x = orcamento, y = receita))
 
+# y = a + b * x
+# y = 0 + 1 * b -> y = x
 # Inserindo a reta x = y
 imdb %>%
   ggplot() +
@@ -37,6 +41,18 @@ imdb %>%
   ggplot() +
   geom_abline(intercept = 0, slope = 1, color = "red") +
   geom_point(aes(x = orcamento, y = receita))
+
+# reta vertical
+imdb %>%
+  ggplot() +
+  geom_point(aes(x = orcamento, y = receita)) +
+  geom_vline(xintercept = 1e+8)
+
+# reta horizontal
+imdb %>%
+  ggplot() +
+  geom_point(aes(x = orcamento, y = receita)) +
+  geom_hline(yintercept = 4e+8, color = "orange")
 
 # Atribuindo a variável lucro aos pontos
 imdb %>%
@@ -52,14 +68,20 @@ imdb %>%
   geom_point(aes(x = orcamento, y = receita, color = lucrou))
 
 # Salvando um gráfico em um arquivo
-imdb %>%
+p <- imdb %>%
   mutate(
     lucrou = ifelse(lucro <= 0, "Não", "Sim")
   ) %>%
   ggplot() +
   geom_point(aes(x = orcamento, y = receita, color = lucrou))
 
-ggsave("meu_grafico.png")
+ggsave(
+  filename = "meu_grafico.pdf",
+  plot = p,
+  # width = 10,
+  # height = 20,
+  units = "cm"
+)
 
 
 # Filosofia ---------------------------------------------------------------
@@ -79,7 +101,33 @@ ggsave("meu_grafico.png")
 # a. Crie um gráfico de dispersão da nota do imdb pelo orçamento.
 #dicas: ggplot() aes() geom_point()
 
+imdb %>%
+  ggplot() +
+  geom_point(aes(x = nota_imdb, y = orcamento))
+
+imdb %>%
+  ggplot() +
+  geom_point(aes(x = orcamento, y = nota_imdb))
+
 # b. Pinte todos os pontos do gráfico de azul. (potencial pegadinha =P)
+
+imdb %>%
+  ggplot()+
+  geom_point(aes(x = orcamento, y = nota_imdb), color = "blue")
+
+imdb %>%
+  mutate(cor = "yellow") %>% View()
+
+imdb %>%
+  ggplot()+
+  geom_point(aes(x = orcamento, y = nota_imdb),
+             color = "blue", size = 1)
+
+
+# pegadinha
+imdb %>%
+  ggplot()+
+  geom_point(aes(x = orcamento, y = nota_imdb, color = "blue"))
 
 # Gráfico de linhas -------------------------------------------------------
 
@@ -94,7 +142,7 @@ imdb %>%
 # Número de filmes coloridos e preto e branco por ano
 
 imdb %>%
-  filter(!is.na(cor)) %>%
+  filter(!is.na(cor), !is.na(ano)) %>%
   group_by(ano, cor) %>%
   summarise(num_filmes = n()) %>%
   ggplot() +
@@ -131,10 +179,25 @@ imdb %>%
   filter(ator_1 == "Robert De Niro") %>%
   group_by(ano) %>%
   summarise(nota_media = mean(nota_imdb, na.rm = TRUE)) %>%
-  mutate(nota_media = round(nota_media, 1)) %>%
+  mutate(
+    nota_media = round(nota_media, 1),
+    label = paste(ano, nota_media, sep = " - ")
+  ) %>%
   ggplot(aes(x = ano, y = nota_media)) +
   geom_line() +
-  geom_label(aes(label = nota_media))
+  geom_label(aes(label = label))
+
+imdb %>%
+  filter(ator_1 == "Robert De Niro") %>%
+  group_by(ano) %>%
+  summarise(nota_media = mean(nota_imdb, na.rm = TRUE)) %>%
+  mutate(
+    nota_media = round(nota_media, 1),
+    label = paste(ano, nota_media, sep = " - ")
+  ) %>%
+  ggplot(aes(x = ano, y = nota_media, label = label)) +
+  geom_line(color = "blue", size = 2) +
+  geom_label(fill = "yellow", color = "black", size = 10)
 
 
 # Exercício ---------------------------------------------------------------
@@ -142,14 +205,24 @@ imdb %>%
 # Faça um gráfico do orçamento médio dos filmes ao longo dos anos.
 # dicas: group_by() summarise() ggplot() aes() geom_line()
 
+imdb %>%
+  group_by(ano) %>%
+  summarise(orcamento_medio = mean(orcamento, na.rm = TRUE)) %>%
+  ggplot() +
+  geom_line(aes(x = ano, y = orcamento_medio ))
+
 # Gráfico de barras -------------------------------------------------------
 
 # Número de filmes dos diretores da base
 imdb %>%
-  count(diretor) %>%
-  top_n(10, n) %>%
+  dplyr::count(diretor, name = "freq") %>%
+  filter(!is.na(diretor)) %>%
+  dplyr::top_n(10, freq) %>%
   ggplot() +
-  geom_col(aes(x = diretor, y = n))
+  geom_col(aes(x = diretor, y = freq))
+
+imdb %>%
+  top_n(10, orcamento)
 
 # Tirando NA e pintando as barras
 imdb %>%
@@ -158,7 +231,8 @@ imdb %>%
   top_n(10, n) %>%
   ggplot() +
   geom_col(
-    aes(x = diretor, y = n),
+    aes(x = diretor, y = n, fill = diretor),
+    color = "black",
     show.legend = FALSE
   )
 
@@ -180,11 +254,11 @@ imdb %>%
   filter(!is.na(diretor)) %>%
   top_n(10, n) %>%
   mutate(
-    diretor = forcats::fct_reorder(diretor, n)
+    diretor = forcats::fct_reorder(diretor, n, .desc = TRUE)
   ) %>%
   ggplot() +
   geom_col(
-    aes(x = n, y = diretor, fill = diretor),
+    aes(x = n, y = diretor),
     show.legend = FALSE
   )
 
@@ -196,21 +270,36 @@ top_10_diretores <- imdb %>%
 
 top_10_diretores %>%
   mutate(
-    diretor = forcats::fct_reorder(diretor, n)
+    # diretor = as.factor(diretor),
+    diretor = fct_reorder(diretor, n)
   ) %>%
   ggplot() +
   geom_col(
     aes(x = n, y = diretor),
     show.legend = FALSE
   ) +
-  geom_label(aes(x = n/2, y = diretor, label = n))
+  geom_label(aes(x = n / 2, y = diretor, label = n))
 
 
 # Exercícios --------------------------------------------------------------
 
 # a. Transforme o gráfico do exercício anterior em um gráfico de barras.
 
-# b. Refaça o gráfico apenas para filmes de 1989 para cá.]]
+imdb %>%
+  group_by(ano) %>%
+  summarise(orcamento_medio = mean(orcamento, na.rm = TRUE)) %>%
+  ggplot() +
+  geom_col(aes( x = ano, y = orcamento.medio))
+
+# b. Refaça o gráfico apenas para filmes de 1989 para cá.
+
+imdb %>%
+  filter(ano >= 1989) %>%
+  group_by(ano) %>%
+  summarise(orcamento.medio = mean(orcamento, na.rm = TRUE)) %>%
+  ggplot() +
+  geom_col(aes( x = ano, y = orcamento.medio))
+
 
 
 # [AVANÇADO] Gráfico de barras II: positions e labels ---------------------------------
@@ -278,7 +367,8 @@ imdb %>%
   geom_histogram(
     aes(x = lucro),
     binwidth = 100000000,
-    color = "white"
+    color = "white",
+    fill = "blue"
   )
 
 # Boxplot do lucro dos filmes dos diretores
@@ -288,7 +378,16 @@ imdb %>%
   group_by(diretor) %>%
   filter(n() >= 15) %>%
   ggplot() +
-  geom_boxplot(aes(x = diretor, y = lucro))
+  geom_boxplot(aes(x = diretor, y = lucro)) +
+  geom_point(aes(x = diretor, y = lucro), alpha = 0.5)
+
+imdb %>%
+  filter(!is.na(diretor)) %>%
+  group_by(diretor) %>%
+  filter(n() >= 15) %>%
+  ggplot() +
+  geom_boxplot(aes(x = diretor, y = lucro)) +
+  geom_jitter(aes(x = diretor, y = lucro), color = "royal blue")
 
 # Ordenando pela mediana
 
@@ -297,7 +396,7 @@ imdb %>%
   group_by(diretor) %>%
   filter(n() >= 15) %>%
   ungroup() %>%
-  mutate(diretor = forcats::fct_reorder(diretor, lucro, na.rm = TRUE)) %>%
+  mutate(diretor = forcats::fct_reorder(diretor, lucro, .fun = mean, na.rm = TRUE)) %>%
   ggplot() +
   geom_boxplot(aes(x = diretor, y = lucro))
 

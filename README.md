@@ -57,3 +57,4 @@ CursoR::atualizar_material()
 | 03-exemplo-importando-varias-bases.R      | <https://curso-r.github.io/202010-r4ds-1/exemplos_de_aula/03-exemplo-importando-varias-bases.R>      |
 | 03-importacao.R                           | <https://curso-r.github.io/202010-r4ds-1/exemplos_de_aula/03-importacao.R>                           |
 | 04-manipulacao.R                          | <https://curso-r.github.io/202010-r4ds-1/exemplos_de_aula/04-manipulacao.R>                          |
+| 05-ggplot2.R                              | <https://curso-r.github.io/202010-r4ds-1/exemplos_de_aula/05-ggplot2.R>                              |
