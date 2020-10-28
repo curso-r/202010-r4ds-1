@@ -1,0 +1,49 @@
+---
+title: "Meu trabalho final"
+author: "William Amorim"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+```
+
+```{r}
+library(tidyverse)
+imdb <- readr::read_rds("dados/imdb.rds")
+```
+
+
+# Motivação/objetivo
+
+# Análise
+
+## Estudando os diretores
+
+```{r}
+
+```
+
+Comentando os resultados
+
+```{r}
+
+```
+
+## Estudando os atores
+
+```{r}
+
+```
+
+comentários
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+

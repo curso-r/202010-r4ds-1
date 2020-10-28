@@ -1,0 +1,54 @@
+---
+title: "Untitled"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(tidyverse)
+```
+
+Bilheteria
+=========================
+
+Row
+------------------
+
+### Primeiro quadrado
+
+```{r}
+mtcars %>% knitr::kable()
+```
+
+
+Row 
+----------------
+
+### Primeiro quadrado
+
+```{r}
+mtcars %>% 
+  ggplot(aes(x = wt, y = mpg)) +
+  geom_point()
+```
+
+
+### Segundo quadrado
+
+Row 
+----------------
+
+### Primeiro quadrado
+
+### Segundo quadrado
+
+### Terceiro quadrado
+
+
+
+Notas
+====================
+

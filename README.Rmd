@@ -78,8 +78,7 @@ knitr::kable(
   tibble::tibble(
     script = list.files(nome_pasta, pattern = ".R"),
     link = paste0("https://curso-r.github.io/", turma, "/", nome_pasta, script)
-  ) %>%
-    dplyr::slice(1:8) # alterei para não mostrar todos os conteúdos
+  )
 )
 ```
 

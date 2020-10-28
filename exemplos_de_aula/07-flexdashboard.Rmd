@@ -48,16 +48,7 @@ imdb %>%
 
 ### Série receita
 
-```{r}
-imdb %>%
-  filter(!is.na(receita), ano > 1970) %>% 
-  group_by(ano) %>% 
-  summarise(receita_media = mean(receita, na.rm = TRUE)) %>%
-  ggplot(aes(x = ano, y = receita_media)) +
-  geom_line() +
-  labs(x = "Ano", y = "Receita") +
-  theme_minimal()
-```
+Texto texto texto
 
 Notas {data-orientation=rows}
 ========================================

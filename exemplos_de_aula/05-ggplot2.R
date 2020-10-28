@@ -404,9 +404,21 @@ imdb %>%
 # Exercícios --------------------------------------------------------------
 
 #a. Descubra quais são os 5 atores que mais aparecem na coluna ator_1.
-# dica: count() top_n()
+# dica: count() top_n().
+
+atores_mais_frequentes <- imdb %>%
+  count(ator_1, name = "frequencia") %>%
+  top_n(5, frequencia) %>%
+  pull(ator_1)
+
 
 #b. Faça um boxplot do lucro dos filmes desses atores.
+
+imdb %>%
+  filter(ator_1 == "Denzel Washington" | ator_1 == "J.K. Simmons" | ator_1 == "Johnny Depp")
+  filter(ator_1 %in% atores_mais_frequentes) %>%
+  ggplot() +
+  geom_boxplot(aes(x = ator_1, y = lucro))
 
 # Título e labels ---------------------------------------------------------
 
@@ -419,7 +431,8 @@ imdb %>%
     y = "Receita ($)",
     color = "Lucro ($)",
     title = "Gráfico de dispersão",
-    subtitle = "Receita vs Orçamento"
+    subtitle = "Receita vs Orçamento",
+    caption = "Consegue colocar uma legenda"
   )
 
 # Escalas
@@ -441,9 +454,30 @@ imdb %>%
   scale_y_continuous(breaks = seq(0, 10, 2)) +
   coord_cartesian(ylim = c(0, 10))
 
+imdb %>%
+  group_by(ano) %>%
+  summarise(nota_media = mean(nota_imdb, na.rm = TRUE)) %>%
+  ggplot() +
+  geom_line(aes(x = ano, y = nota_media)) +
+  scale_x_continuous(breaks = seq(1916, 2016, 10)) +
+  scale_y_continuous(breaks = seq(0, 10, 2)) +
+  coord_cartesian(xlim = c(1989, 2016))
+
 # Cores -------------------------------------------------------------------
 
 # Escolhendo cores pelo nome
+
+imdb %>%
+  count(diretor) %>%
+  filter(!is.na(diretor)) %>%
+  top_n(5, n) %>%
+  ggplot() +
+  geom_bar(
+    aes(x = n, y = diretor),
+    fill = "orange",
+    stat = "identity"
+  )
+
 imdb %>%
   count(diretor) %>%
   filter(!is.na(diretor)) %>%
@@ -451,10 +485,9 @@ imdb %>%
   ggplot() +
   geom_bar(
     aes(x = n, y = diretor, fill = diretor),
-    stat = "identity",
-    show.legend = FALSE
+    stat = "identity"
   ) +
-  scale_fill_manual(values = c("orange", "royalblue", "purple", "salmon", "darkred"))
+  scale_fill_manual(values = c("#b139cc", "royalblue", "purple", "salmon", "darkred"))
 # http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf
 
 # Escolhendo pelo hexadecimal
@@ -508,6 +541,9 @@ imdb %>%
     subtitle = "Receita vs Orçamento"
   ) +
   theme(
-    plot.title = element_text(hjust = 0.5),
-    plot.subtitle = element_text(hjust = 0.5)
+    plot.title = element_text(hjust = 0.5, colour = "red", size = 20),
+    plot.subtitle = element_text(hjust = 0.5),
+    panel.grid.major.x = element_line(color = "purple"),
+    panel.grid.minor.x = element_blank(),
+    panel.background = element_rect(fill = "orange", color = "black")
   )

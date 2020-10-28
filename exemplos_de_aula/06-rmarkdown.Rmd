@@ -4,16 +4,16 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(message = FALSE, warning=FALSE, echo = FALSE)
 ```
 
 ## O que é o R Markdown?
 
-O R Markdown é uma ferramenta para criação de relatórios automatizados utilizando as linguagem R e Markdown. 
+O R Markdown é uma ferramenta para criação de relatórios automatizados utilizando as linguagem R e Markdown.
 
 A linguagem de marcação Markdown serve para construirmos e formatarmos diversos formatos de arquivos (PDF, HTML, Word, entre outros) a partir de um arquivo de texto com regras bem simples. O R Markdown é uma extensãi di Markdown que nos permite colocar código de R.
 
-Linguagens de marcação utilizam marcadores (símbolos, tags, funções) para formatar um arquivo de texto simples. Os exemplos mais famosos de linguagem de marcação são o HTML e LaTeX.
+**Linguagens de marcação utilizam marcadores** (símbolos, tags, funções) para formatar um arquivo de texto simples. Os exemplos mais famosos de linguagem de marcação são o HTML e LaTeX.
 
 Após a construção do documento, para gerarmos o relatório na extensão desejada, precisamos *renderizá-lo*, isto é, transformar o arquivo R Markdown em um PDF, HTML ou Word. Isso pode ser feito no RStudio a partir do botão `knit`, que fica logo acima do script, ou pelo atalho `CTRL + SHIFT + K`.
 
@@ -43,12 +43,16 @@ A seguir, apresentamos uma lista dos principais marcadores utilizados para forma
 
 - para deixar o texto com `esse formato` (formato de código), apenas coloque o texto entre duas crases.
 
-
 ## Chunks: escrevendo nosso código de R
 
 Em um arquivo R Markdown, precisamos escrever nossos códigos dentro dos *chunks*. Para inserir um chunk, utilize o atalho `CTRL + ALT + I`.
 
 Dentro dos chunks você poderá escrever códigos em R como se fosse o nosso script .R tradicional. Por padrão, o código dentro do chunk será colocado no relatório, assim como o resultado da execução desse código (i.e., tudo que seria). Veja o exemplo abaixo:
+
+```{r, eval = FALSE, echo=FALSE}
+1 + 2
+```
+
 
 ```{r}
 meu_vetor <- c(1, 2, 3)
@@ -90,7 +94,7 @@ Para saber mais sobre os parâmetros dos chunks, consulte [este guia](https://ww
 
 Você pode carregar pacotes e dados normalmente dentro de um script R Markdown.
 
-```{r}
+```{r, message = FALSE, warning=FALSE}
 library(tidyverse)
 
 imdb <- read_rds("../dados/imdb.rds")
@@ -124,7 +128,7 @@ imdb %>%
 
 Para construir gráficos, não há segredos. O mesmo gráfico que apareceria na aba **Plots** do RStudio aparecerá no relatório.
 
-```{r, fig.align = "center", warning = FALSE, fig.cap="Figura 1. Nota média ao longo dos anos."}
+```{r, fig.align = "center", warning = FALSE, fig.cap="Figura 1. Nota média ao longo dos anos.", fig.width=10, fig.height=20}
 imdb %>% 
   group_by(ano) %>% 
   summarise(nota_media = mean(nota_imdb, na.rm = TRUE)) %>% 
