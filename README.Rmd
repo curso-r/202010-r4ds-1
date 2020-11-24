@@ -50,6 +50,36 @@ Certifique que você está dentro do projeto criado no passo 2 e rode o código 
 CursoR::atualizar_material()
 ```
 
+
+## Trabalhos premiados
+
+
+```{r, echo = FALSE}
+
+nome_pasta <- "trabalho_final/"
+
+tibble::tibble(
+  arquivo_html = list.files(nome_pasta, pattern = ".html"),
+  arquivo_pdf = list.files(nome_pasta, pattern = ".pdf"),
+  link_html = paste0("https://curso-r.github.io/", turma, "/", nome_pasta, arquivo_html),
+  link_pdf = paste0("https://curso-r.github.io/", turma, "/", nome_pasta, arquivo_pdf)
+)  %>%
+  dplyr::mutate(
+    nome = stringr::str_replace(arquivo_html, "_", " "),
+    nome = stringr::str_replace(nome, ".html", ""),
+    link_html = glue::glue("<a href='{link_html}'> HTML</a>"),
+    link_pdf = glue::glue("<a href='{link_pdf}'> PDF</a>")   
+                
+                ) %>% 
+  dplyr::relocate(nome) %>% 
+  dplyr::select(-arquivo_html, -arquivo_pdf) %>% 
+  
+  dplyr::arrange(dplyr::desc(nome)) %>% 
+  knitr::kable(col.names = c("Nome", "Relatório em HTML", "Relatório em PDF"))
+  
+
+```
+
 ## Slides
 
 ```{r, echo = FALSE}

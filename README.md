@@ -36,6 +36,13 @@ para Ciência de Dados 1\!
 CursoR::atualizar_material()
 ```
 
+## Trabalhos premiados
+
+| Nome           | Relatório em HTML                                                                              | Relatório em PDF                                                                             |
+| :------------- | :--------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------- |
+| Luisa Bock     | <a href='https://curso-r.github.io/202010-r4ds-1/trabalho_final/Luisa_Bock.html'> HTML</a>     | <a href='https://curso-r.github.io/202010-r4ds-1/trabalho_final/Luisa_Bock.pdf'> PDF</a>     |
+| Andre Oliveira | <a href='https://curso-r.github.io/202010-r4ds-1/trabalho_final/Andre_Oliveira.html'> HTML</a> | <a href='https://curso-r.github.io/202010-r4ds-1/trabalho_final/Andre_Oliveira.pdf'> PDF</a> |
+
 ## Slides
 
 | Slide                              | Link                                                                       | Link em PDF                                                                                 |
